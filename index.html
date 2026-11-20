@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AquaSense: AI-Powered Smart Water Leakage Detection</title>
+  <meta name="description" content="Next-generation multi-modal edge AI water leakage detection system featuring cross-modal corroboration, micro-acoustic localization, and autonomous shutoff.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="dark-theme">
+  <!-- TOP NAVIGATION -->
+  <header class="site-header">
+    <div class="nav-container">
+      <div class="brand-logo">
+        <div class="logo-icon">
+          <svg viewBox="0 0 32 32" fill="none" class="drop-svg">
+            <path d="M16 3C16 3 7 14.5 7 21C7 25.97 11.03 30 16 30C20.97 30 25 25.97 25 21C25 14.5 16 3 16 3Z" fill="url(#dropGrad)"/>
+            <path d="M12 21C12 18.5 14 15.5 16 13C16 13 14 17 14 20C14 21.5 15 22.5 16 23C14 23 12 22.2 12 21Z" fill="#ffffff" opacity="0.6"/>
+            <defs>
+              <linearGradient id="dropGrad" x1="7" y1="3" x2="25" y2="30" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#00f0ff"/>
+                <stop offset="1" stop-color="#0055ff"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-title">AquaSense</span>
+          <span class="brand-badge">Edge AI 2.0</span>
+        </div>
+      </div>
+
+      <nav class="nav-links">
+        <a href="#hero">Overview</a>
+        <a href="#problem">The Problem</a>
+        <a href="#core-idea">Pipeline Architecture</a>
+        <a href="#simulation" class="nav-highlight">Live Simulation</a>
+        <a href="#comparison">Why AquaSense Wins</a>
+        <a href="#validation">Test Validation</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button id="audio-toggle-btn" class="icon-btn" title="Toggle Edge Buzzer Sound" aria-label="Toggle Audio">
+          <svg id="audio-icon-on" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+          </svg>
+          <svg id="audio-icon-off" class="hidden" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <line x1="23" y1="9" x2="17" y2="15"></line>
+            <line x1="17" y1="9" x2="23" y2="15"></line>
+          </svg>
+          <span class="btn-text">Audio Alerts</span>
+        </button>
+        <a href="#simulation" class="btn btn-primary sm-glow">Launch Simulator</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- 1. HERO SECTION -->
+    <section id="hero" class="hero-section">
+      <div class="hero-background-glow"></div>
+      <div class="container hero-content">
+        <div class="hero-pill-badge">
+          <span class="pulsing-dot"></span>
+          <span>Next-Generation Multi-Modal Water Telemetry</span>
+        </div>
+        <h1 class="hero-title">
+          Eliminate False Alarms. Detect Hidden Leaks.<br>
+          <span class="gradient-text">Before the Flood Begins.</span>
+        </h1>
+        <p class="hero-subtitle">
+          Existing detectors rely on a single isolated sensor—missing silent leaks while panicking over running appliances. 
+          <strong>AquaSense</strong> fuses on-device acoustic, pressure, flow, and moisture analytics to deliver micro-second 
+          cross-modal corroboration, sub-meter leak localization, and autonomous fail-safe shutoff.
+        </p>
+
+        <div class="hero-cta-group">
+          <a href="#simulation" class="btn btn-primary lg-glow">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+            Launch Live Simulation
+          </a>
+          <a href="#core-idea" class="btn btn-secondary">
+            Explore 6-Stage AI Pipeline
+          </a>
+        </div>
+
+        <div class="hero-stats-strip">
+          <div class="strip-item">
+            <span class="strip-value">4-Signal</span>
+            <span class="strip-label">Multi-Modal Fusion</span>
+          </div>
+          <div class="strip-divider"></div>
+          <div class="strip-item">
+            <span class="strip-value">&lt; 5.0 s</span>
+            <span class="strip-label">Autonomous Burst Shutoff</span>
+          </div>
+          <div class="strip-divider"></div>
+          <div class="strip-item">
+            <span class="strip-value">&plusmn; 0.4 m</span>
+            <span class="strip-label">TDOA Acoustic Localization</span>
+          </div>
+          <div class="strip-divider"></div>
+          <div class="strip-item">
+            <span class="strip-value">99.8%</span>
+            <span class="strip-label">False Alarm Suppression</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. THE PROBLEM SECTION -->
+    <section id="problem" class="section problem-section">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-tag">Current Industry Failure</span>
+          <h2 class="section-title">Why Legacy Leak Detection Fails Every Single Day</h2>
+          <p class="section-desc">
+            Water infrastructure loses trillions of gallons while homeowners suffer costly structural rot and nuisance shutoffs.
+          </p>
+        </div>
+
+        <div class="problem-grid">
+          <div class="problem-card glass-panel">
+            <div class="problem-icon-wrapper danger-glow">
+              <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="#ef4444" stroke-width="2">
+                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+              </svg>
+            </div>
+            <h3>Discovered Only After Bill Spikes or Mold</h3>
+            <p>
+              95% of domestic leaks are silent seeps behind drywall or underground. By the time water stains appear or monthly bills 
+              quadruple, structural framing has rotted and mold remediation costs average over $12,000.
+            </p>
+            <div class="card-footer-metric">Average detection delay: <strong>3 to 6 months</strong></div>
+          </div>
+
+          <div class="problem-card glass-panel">
+            <div class="problem-icon-wrapper warning-glow">
+              <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="#f59e0b" stroke-width="2">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                <line x1="2" y1="2" x2="22" y2="22"></line>
+              </svg>
+            </div>
+            <h3>Single-Sensor False Alarms &amp; User Fatigue</h3>
+            <p>
+              Point moisture pucks scream when a floor is mopped, and single flow meters shut off the water mid-shower when 
+              the dishwasher kicks in. Users get frustrated and unplug their detectors, leaving homes totally unprotected.
+            </p>
+            <div class="card-footer-metric">Unplug rate within 60 days: <strong>42%</strong></div>
+          </div>
+
+          <div class="problem-card glass-panel">
+            <div class="problem-icon-wrapper info-glow">
+              <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="#00f0ff" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M12 6v6l4 2"></path>
+                <path d="M7 12a5 5 0 0 1 5-5"></path>
+              </svg>
+            </div>
+            <h3>Technicians Walking Pipes with Listening Rods</h3>
+            <p>
+              Municipal utilities still employ crews to manually walk streets at 2:00 AM holding mechanical stethoscope rods against 
+              fire hydrants to locate pipe fissures—an archaic, slow, and labor-exhausting method.
+            </p>
+            <div class="card-footer-metric">Survey speed: <strong>&lt; 2 miles per night</strong></div>
+          </div>
+        </div>
+
+        <!-- Global Non-Revenue Water Banner -->
+        <div class="nrw-callout-banner glass-panel">
+          <div class="nrw-graphic">
+            <div class="water-ring"></div>
+            <span class="nrw-big-number">126B m³</span>
+          </div>
+          <div class="nrw-text">
+            <h4>
+              Global Non-Revenue Water (NRW) Crisis
+              <span class="help-tooltip" data-tooltip="Non-Revenue Water (NRW): Treated, pumped drinking water lost before ever reaching a paying customer due to hidden pipe bursts and distribution leaks.">?</span>
+            </h4>
+            <p>
+              Over <strong>126 billion cubic meters</strong> of treated potable water are lost every year through pipe leaks and bursts worldwide—costing utilities and taxpayers 
+              more than <strong>$39 Billion USD annually</strong> while exacerbating municipal water scarcity in drought-prone regions.
+            </p>
+          </div>
+          <div class="nrw-badge">
+            <span class="badge-label">Annual Global Loss</span>
+            <span class="badge-stat">$39,000,000,000</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. THE CORE IDEA: INTERACTIVE PIPELINE -->
+    <section id="core-idea" class="section pipeline-section">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-tag">System Architecture</span>
+          <h2 class="section-title">The AquaSense 6-Stage Intelligence Loop</h2>
+          <p class="section-desc">
+            From raw micro-vibrations to autonomous valve actuation: click any pipeline node below to explore its algorithmic inner workings.
+          </p>
+        </div>
+
+        <!-- Pipeline Interactive Diagram -->
+        <div class="pipeline-container glass-panel">
+          <div class="pipeline-flow-track" id="pipeline-track">
+            <!-- Connecting Animated Line -->
+            <div class="pipeline-laser-line"></div>
+
+            <!-- Step 1 -->
+            <div class="pipeline-step active" data-step="1">
+              <div class="step-circle">
+                <span class="step-num">01</span>
+                <div class="step-icon">
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"></path>
+                    <path d="M12 12v9"></path>
+                    <path d="m8 17 4 4 4-4"></path>
+                  </svg>
+                </div>
+              </div>
+              <span class="step-title">Sensor Capture</span>
+              <span class="step-sub">Acoustic, P, Q, RH</span>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="pipeline-step" data-step="2">
+              <div class="step-circle">
+                <span class="step-num">02</span>
+                <div class="step-icon">
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="4" y="4" width="16" height="16" rx="2"></rect>
+                    <rect x="9" y="9" width="6" height="6"></rect>
+                    <line x1="9" y1="1" x2="9" y2="4"></line>
+                    <line x1="15" y1="1" x2="15" y2="4"></line>
+                    <line x1="9" y1="20" x2="9" y2="23"></line>
+                    <line x1="15" y1="20" x2="15" y2="23"></line>
+                  </svg>
+                </div>
+              </div>
+              <span class="step-title">Edge AI Inference <span class="help-tooltip" data-tooltip="TinyML: Low-power neural network inference (<100mW) executed on-device on ARM Cortex-M microcontrollers.">?</span></span>
+              <span class="step-sub">TinyML on Cortex-M4</span>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="pipeline-step" data-step="3">
+              <div class="step-circle">
+                <span class="step-num">03</span>
+                <div class="step-icon">
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="18" cy="18" r="3"></circle>
+                    <circle cx="6" cy="6" r="3"></circle>
+                    <path d="M13 6h3a2 2 0 0 1 2 2v7"></path>
+                    <line x1="6" y1="9" x2="6" y2="21"></line>
+                  </svg>
+                </div>
+              </div>
+              <span class="step-title">Cross-Modal Corroboration <span class="help-tooltip" data-tooltip="Cross-Modal Corroboration: Requiring independent confirmation across ≥ 2 distinct sensor modalities to prevent single-point false alarms.">?</span></span>
+              <span class="step-sub">&ge; 2 Modality Voting</span>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="pipeline-step" data-step="4">
+              <div class="step-circle">
+                <span class="step-num">04</span>
+                <div class="step-icon">
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 3v18h18"></path>
+                    <path d="m19 9-5 5-4-4-3 3"></path>
+                  </svg>
+                </div>
+              </div>
+              <span class="step-title">Severity &amp; Trend Scoring</span>
+              <span class="step-sub">Seep &rarr; Burst + dS/dt</span>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="pipeline-step" data-step="5">
+              <div class="step-circle">
+                <span class="step-num">05</span>
+                <div class="step-icon">
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="22" y1="12" x2="18" y2="12"></line>
+                    <line x1="6" y1="12" x2="2" y2="12"></line>
+                    <line x1="12" y1="6" x2="12" y2="2"></line>
+                    <line x1="12" y1="22" x2="12" y2="18"></line>
+                  </svg>
+                </div>
+              </div>
+              <span class="step-title">Alert &amp; TDOA Localization <span class="help-tooltip" data-tooltip="TDOA Cross-Correlation: Time-Difference-of-Arrival analysis comparing wave arrival delays to calculate exact leak coordinates: x = (D - v·Δt) / 2.">?</span></span>
+              <span class="step-sub">x = (D - v&middot;&Delta;t) / 2</span>
+            </div>
+
+            <!-- Step 6 -->
+            <div class="pipeline-step" data-step="6">
+              <div class="step-circle">
+                <span class="step-num">06</span>
+                <div class="step-icon">
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                    <path d="m9 12 2 2 4-4"></path>
+                  </svg>
+                </div>
+              </div>
+              <span class="step-title">Shutoff &amp; Service Loop</span>
+              <span class="step-sub">5s Cancel + Dispatch</span>
+            </div>
+          </div>
+
+          <!-- Step Detail Callout (Interactive Explanation) -->
+          <div class="pipeline-detail-box" id="pipeline-detail">
+            <div class="detail-badge-row">
+              <span class="badge detail-step-badge" id="detail-step-badge">Stage 01</span>
+              <span class="detail-subtitle" id="detail-subtitle">High-Fidelity Edge Telemetry Ingestion</span>
+            </div>
+            <h3 class="detail-title" id="detail-title">Continuous Multi-Physical Data Acquisition</h3>
+            <p class="detail-desc" id="detail-desc">
+              Four orthogonal sensor streams are sampled at 200 Hz: piezo-acoustic pipe vibrations (1–15 kHz), inline strain pressure (PSI), differential magnetic turbine flow (LPM), and galvanic moisture pins (RH%).
+            </p>
+            <div class="detail-meta-pills" id="detail-meta">
+              <span class="meta-pill">Sampling: 200 Hz</span>
+              <span class="meta-pill">Sensors: Piezo + Piezoresistive + Hall + Conductive</span>
+              <span class="meta-pill">Power: 85 mW (Solar/Battery)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. LIVE SIMULATION SECTION -->
+    <section id="simulation" class="section simulation-section">
+      <div class="container-fluid sim-wrapper">
+        <div class="sim-header-row">
+          <div>
+            <div class="sim-mode-badge">
+              <span class="badge-status-dot green" id="sim-overall-status-dot"></span>
+              <span id="sim-overall-status-text">SYSTEM ONLINE &bull; NORMAL OPERATION</span>
+            </div>
+            <h2 class="sim-title">AquaSense Live Interactive Simulation</h2>
+          </div>
+
+          <!-- Simulation Top Toolbar -->
+          <div class="sim-toolbar">
+            <!-- View Tabs: Home vs Utility DMA -->
+            <div class="view-tabs">
+              <button class="view-tab-btn active" id="tab-home-btn" data-view="home">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                </svg>
+                Residential Floorplan
+              </button>
+              <button class="view-tab-btn" id="tab-utility-btn" data-view="utility">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon>
+                  <line x1="8" y1="2" x2="8" y2="18"></line>
+                  <line x1="16" y1="6" x2="16" y2="22"></line>
+                </svg>
+                Utility District DMA
+              </button>
+            </div>
+
+            <!-- Pipe Material Selector for TDOA -->
+            <div class="toolbar-control-group">
+              <label for="pipe-material-select">Pipe Material:</label>
+              <select id="pipe-material-select" class="custom-select">
+                <option value="metal" selected>Copper / Steel (v = 1,200 m/s)</option>
+                <option value="pvc">PVC / PEX (v = 400 m/s)</option>
+              </select>
+            </div>
+
+            <!-- Sim Speed Slider -->
+            <div class="toolbar-control-group">
+              <label for="sim-speed-slider">Speed: <span id="speed-val">1x</span></label>
+              <input type="range" id="sim-speed-slider" min="1" max="5" value="1" step="1">
+            </div>
+
+            <!-- Auto Shutoff Switch -->
+            <div class="toolbar-switch-group">
+              <label class="switch">
+                <input type="checkbox" id="auto-shutoff-toggle" checked>
+                <span class="slider round"></span>
+              </label>
+              <span class="switch-label">Auto-Shutoff Valve</span>
+            </div>
+
+            <!-- Compare Mode Toggle -->
+            <div class="toolbar-switch-group highlight-switch">
+              <label class="switch">
+                <input type="checkbox" id="compare-mode-toggle">
+                <span class="slider round"></span>
+              </label>
+              <span class="switch-label"><strong>Compare Mode</strong> (vs Legacy)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Burst Countdown Alert Banner (Hidden by default, shown during burst) -->
+        <div id="burst-countdown-banner" class="burst-countdown-banner hidden">
+          <div class="countdown-content">
+            <div class="countdown-icon-pulse">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#ffffff" stroke-width="2.5">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                <line x1="12" y1="9" x2="12" y2="13"></line>
+                <line x1="12" y1="17" x2="12.01" y2="17"></line>
+              </svg>
+            </div>
+            <div class="countdown-text-block">
+              <h4 class="countdown-title">CRITICAL PIPE BURST DETECTED!</h4>
+              <p class="countdown-desc">
+                Autonomous fail-safe valve closure armed. Closing motorized main shutoff in 
+                <strong id="countdown-seconds" class="countdown-timer-digit">5.0</strong> seconds to prevent catastrophic flooding.
+              </p>
+            </div>
+            <div class="countdown-actions">
+              <button id="cancel-shutoff-btn" class="btn btn-warning-action">
+                TAP TO CANCEL AUTO-SHUTOFF
+              </button>
+              <button id="immediate-shutoff-btn" class="btn btn-danger-action">
+                CLOSE VALVE NOW
+              </button>
+            </div>
+          </div>
+          <div class="countdown-progress-bar">
+            <div id="countdown-progress-fill" class="countdown-progress-fill"></div>
+          </div>
+        </div>
+
+        <!-- SIMULATION MAIN GRID -->
+        <div class="sim-grid-layout">
+          <!-- LEFT COLUMN: Floor Plan & Topology Map -->
+          <div class="sim-left-col">
+            <!-- Floor Plan Card -->
+            <div class="glass-panel floorplan-card" id="home-view-container">
+              <div class="card-header-bar">
+                <div class="header-left">
+                  <span class="card-title">House Pipeline Topology &amp; Sensor Nodes</span>
+                  <span class="help-tooltip" data-tooltip="Click any sensor node (N1, N2, N3) or anywhere along the pipe to inspect localized telemetry and cross-correlation.">?</span>
+                </div>
+                <div class="header-right">
+                  <span class="node-legend-item"><span class="legend-dot green"></span> Healthy</span>
+                  <span class="node-legend-item"><span class="legend-dot amber"></span> Suspicious</span>
+                  <span class="node-legend-item"><span class="legend-dot red"></span> Leak</span>
+                </div>
+              </div>
+
+              <!-- Interactive Floorplan Canvas -->
+              <div class="floorplan-canvas-wrapper">
+                <canvas id="floorplan-canvas" width="680" height="420"></canvas>
+                
+                <!-- Floorplan HTML Overlays (Rooms, labels, valve status) -->
+                <div class="floorplan-overlay">
+                  <div class="room-tag kitchen-tag">Kitchen / Dishwasher (Sink N1)</div>
+                  <div class="room-tag bathroom-tag">Bathroom / Hallway (Mid-Pipe N2)</div>
+                  <div class="room-tag utility-tag">Utility / Water Heater (Inlet N3)</div>
+
+                  <!-- Valve Status Widget -->
+                  <div class="valve-status-widget" id="valve-widget">
+                    <div class="valve-icon" id="valve-icon">
+                      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path d="M12 3v6M12 15v6M3 12h6M15 12h6"></path>
+                      </svg>
+                    </div>
+                    <div class="valve-info">
+                      <span class="valve-label">Main Valve</span>
+                      <span class="valve-state open" id="valve-state-text">OPEN (100%)</span>
+                    </div>
+                  </div>
+
+                  <!-- WiFi Status Badge -->
+                  <div class="wifi-status-widget" id="wifi-widget">
+                    <div class="wifi-icon" id="wifi-icon-svg">
+                      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12.55a11 11 0 0 1 14.08 0"></path>
+                        <path d="M1.42 9a16 16 0 0 1 21.16 0"></path>
+                        <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
+                        <line x1="12" y1="20" x2="12.01" y2="20"></line>
+                      </svg>
+                    </div>
+                    <span class="wifi-label" id="wifi-label-text">Edge Connected</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Floor Plan Bottom Bar: Node Selector & TDOA Indicator -->
+              <div class="floorplan-telemetry-bar">
+                <div class="node-selector-pills">
+                  <span class="selector-label">Inspect Node:</span>
+                  <button class="node-pill-btn active" data-node="N1">
+                    <span class="dot"></span> N1 (Kitchen Sink)
+                  </button>
+                  <button class="node-pill-btn" data-node="N2">
+                    <span class="dot"></span> N2 (Mid-Pipe)
+                  </button>
+                  <button class="node-pill-btn" data-node="N3">
+                    <span class="dot"></span> N3 (Utility/Inlet)
+                  </button>
+                </div>
+
+                <!-- TDOA Localization Banner -->
+                <div class="tdoa-live-metric" id="tdoa-metric-box">
+                  <span class="tdoa-label">TDOA Acoustic Localization:</span>
+                  <span class="tdoa-val" id="tdoa-val-display">No acoustic delta</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Utility DMA District Map (Hidden unless Utility Tab Active) -->
+            <div class="glass-panel utility-map-card hidden" id="utility-view-container">
+              <div class="card-header-bar">
+                <div class="header-left">
+                  <span class="card-title">Municipal District Metered Area (DMA #7-East)</span>
+                  <span class="help-tooltip" data-tooltip="12 acoustic nodes along municipal trunk mains. Click any pipe segment to inject a distribution leak and test automated sector isolation.">?</span>
+                </div>
+                <div class="header-right">
+                  <span class="badge blue">12 DMA Nodes</span>
+                  <span class="badge green">Inflow: 480 m³/h</span>
+                </div>
+              </div>
+
+              <div class="utility-canvas-wrapper">
+                <canvas id="utility-map-canvas" width="680" height="420"></canvas>
+              </div>
+
+              <div class="utility-controls-bar">
+                <button id="inject-utility-leak-btn" class="btn btn-warning btn-sm">
+                  ⚡ Inject 450 m³/day Main Leak
+                </button>
+                <button id="reset-utility-btn" class="btn btn-outline btn-sm">
+                  Reset District Grid
+                </button>
+                <div class="utility-stat-chip">
+                  <span>Pinpointed Sector:</span>
+                  <strong id="dma-isolated-segment">None (Grid Nominal)</strong>
+                </div>
+              </div>
+            </div>
+
+            <!-- Calibration Progress Bar (Shown in PVC Calibration scenario) -->
+            <div id="calibration-card" class="glass-panel calibration-card hidden">
+              <div class="calib-header">
+                <div class="calib-title-row">
+                  <span class="calib-title">Adaptive Baseline Machine Learning Calibration (PVC Pipe)</span>
+                  <span class="calib-pct" id="calib-pct-text">0%</span>
+                </div>
+                <p class="calib-sub">
+                  TinyML auto-tuning ambient acoustic signatures and hydrodynamic pressure cycles over a simulated 48-hour cycle.
+                </p>
+              </div>
+              <div class="calib-track">
+                <div class="calib-fill" id="calib-fill-bar"></div>
+              </div>
+              <div class="calib-footer-stats">
+                <span>Phase: <strong id="calib-phase-text">Listening to ambient noise...</strong></span>
+                <span>Noise floor learned: <strong id="calib-floor-text">-- dB</strong></span>
+                <span>Adaptive threshold: <strong id="calib-threshold-text">--</strong></span>
+              </div>
+            </div>
+
+            <!-- EVENT LOG PANEL -->
+            <div class="glass-panel event-log-card">
+              <div class="card-header-bar">
+                <div class="header-left">
+                  <span class="card-title">Real-Time Edge Event Audit Log</span>
+                  <span class="log-count" id="log-count-badge">0 events</span>
+                </div>
+                <div class="header-right">
+                  <button id="clear-log-btn" class="icon-link-btn" title="Clear log">Clear</button>
+                </div>
+              </div>
+              <div class="event-log-stream" id="event-log-stream">
+                <!-- Log entries dynamically prepended -->
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT COLUMN: Control Panel & Live Charts -->
+          <div class="sim-right-col">
+            <!-- Scenario Preset Selector Card -->
+            <div class="glass-panel scenario-card">
+              <div class="card-header-bar">
+                <span class="card-title">Operational Scenarios &amp; Stress Tests</span>
+                <span class="badge" id="active-scenario-badge">Normal</span>
+              </div>
+              <div class="scenario-btn-grid">
+                <button class="scenario-btn active" data-scenario="normal">
+                  <div class="btn-top">
+                    <span class="sc-icon">🛡️</span>
+                    <span class="sc-title">Normal Operation</span>
+                  </div>
+                  <span class="sc-desc">Baseline noise floor, no leaks</span>
+                </button>
+
+                <button class="scenario-btn" data-scenario="slow_drip">
+                  <div class="btn-top">
+                    <span class="sc-icon">💧</span>
+                    <span class="sc-title">Slow Drip (Faucet)</span>
+                  </div>
+                  <span class="sc-desc">Micro-acoustic + moisture accumulation</span>
+                </button>
+
+                <button class="scenario-btn danger-btn" data-scenario="burst">
+                  <div class="btn-top">
+                    <span class="sc-icon">💥</span>
+                    <span class="sc-title">Burst Pipe Event</span>
+                  </div>
+                  <span class="sc-desc">Flow spike + pressure drop &rarr; Auto shutoff</span>
+                </button>
+
+                <button class="scenario-btn" data-scenario="dishwasher">
+                  <div class="btn-top">
+                    <span class="sc-icon">🍽️</span>
+                    <span class="sc-title">Dishwasher Running</span>
+                  </div>
+                  <span class="sc-desc">Acoustic spike ONLY &rarr; Alarm Suppressed</span>
+                </button>
+
+                <button class="scenario-btn" data-scenario="mid_leak">
+                  <div class="btn-top">
+                    <span class="sc-icon">📍</span>
+                    <span class="sc-title">Leak Between Nodes</span>
+                  </div>
+                  <span class="sc-desc">TDOA Acoustic Cross-Correlation</span>
+                </button>
+
+                <button class="scenario-btn" data-scenario="wifi_out">
+                  <div class="btn-top">
+                    <span class="sc-icon">📡</span>
+                    <span class="sc-title">Wi-Fi Disconnected</span>
+                  </div>
+                  <span class="sc-desc">100% On-Device Edge Autonomy &amp; Buzzer</span>
+                </button>
+
+                <button class="scenario-btn" data-scenario="calibration">
+                  <div class="btn-top">
+                    <span class="sc-icon">⚙️</span>
+                    <span class="sc-title">PVC Calibration (48h)</span>
+                  </div>
+                  <span class="sc-desc">Dynamic baseline learning &amp; auto-adaptation</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- FUSION SCORE & CORROBORATION DASHBOARD -->
+            <div class="glass-panel fusion-status-card">
+              <div class="fusion-card-grid">
+                <!-- Gauge Widget -->
+                <div class="gauge-col">
+                  <div class="gauge-title-row">
+                    <span class="gauge-title">Fusion Score</span>
+                    <span class="help-tooltip" data-tooltip="Weighted multi-modal sum: Acoustic (0.30) + Moisture (0.25) + Flow (0.25) + Pressure (0.20)">?</span>
+                  </div>
+                  <div class="gauge-container">
+                    <canvas id="gauge-canvas" width="160" height="110"></canvas>
+                    <div class="gauge-readout">
+                      <span class="gauge-number" id="gauge-number">12</span>
+                      <span class="gauge-denom">/ 100</span>
+                    </div>
+                  </div>
+                  <div class="severity-pill-row">
+                    <span class="severity-badge-pill nominal" id="severity-badge-pill">NOMINAL</span>
+                    <span class="trend-badge-pill steady" id="trend-badge-pill">&rarr; Steady</span>
+                  </div>
+                </div>
+
+                <!-- Corroboration 4-Modality Matrix -->
+                <div class="corroboration-col">
+                  <div class="corr-header">
+                    <span class="corr-title">Cross-Modal Corroboration Engine</span>
+                    <span class="corr-rule-badge">&ge; 2 Modalities Required</span>
+                  </div>
+
+                  <div class="modality-badges-grid">
+                    <!-- Acoustic -->
+                    <div class="modality-badge" id="modal-badge-acoustic">
+                      <div class="badge-icon">🔊</div>
+                      <div class="badge-details">
+                        <span class="m-name">Acoustic</span>
+                        <span class="m-thresh" id="m-val-acoustic">18 dB (Th: 45)</span>
+                      </div>
+                      <div class="badge-vote-dot" id="dot-acoustic"></div>
+                    </div>
+
+                    <!-- Pressure -->
+                    <div class="modality-badge" id="modal-badge-pressure">
+                      <div class="badge-icon">🔻</div>
+                      <div class="badge-details">
+                        <span class="m-name">Pressure</span>
+                        <span class="m-thresh" id="m-val-pressure">58 PSI (Th: &lt;42)</span>
+                      </div>
+                      <div class="badge-vote-dot" id="dot-pressure"></div>
+                    </div>
+
+                    <!-- Flow -->
+                    <div class="modality-badge" id="modal-badge-flow">
+                      <div class="badge-icon">🌊</div>
+                      <div class="badge-details">
+                        <span class="m-name">Flow Rate</span>
+                        <span class="m-thresh" id="m-val-flow">0.0 LPM (Th: &gt;12)</span>
+                      </div>
+                      <div class="badge-vote-dot" id="dot-flow"></div>
+                    </div>
+
+                    <!-- Moisture -->
+                    <div class="modality-badge" id="modal-badge-moisture">
+                      <div class="badge-icon">💧</div>
+                      <div class="badge-details">
+                        <span class="m-name">Moisture</span>
+                        <span class="m-thresh" id="m-val-moisture">12% RH (Th: &gt;45)</span>
+                      </div>
+                      <div class="badge-vote-dot" id="dot-moisture"></div>
+                    </div>
+                  </div>
+
+                  <div class="voting-summary-bar">
+                    <span class="vote-label">Active Modality Votes:</span>
+                    <strong class="vote-count-text" id="vote-count-text">0 / 4 (Safe)</strong>
+                    <span class="vote-status-tag safe" id="vote-status-tag">NORMAL</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- LIVE SCROLLING CHARTS (4 SIGNALS) -->
+            <div class="glass-panel charts-card">
+              <div class="card-header-bar">
+                <div class="header-left">
+                  <span class="card-title">Live Sensor Traces (Selected: <strong id="chart-node-label">N1 Kitchen</strong>)</span>
+                  <span class="sampling-rate-pill">200 Hz Edge Buffer</span>
+                </div>
+                <div class="header-right">
+                  <span class="chart-legend-pill cyan">Acoustic</span>
+                  <span class="chart-legend-pill purple">Pressure</span>
+                  <span class="chart-legend-pill blue">Flow</span>
+                  <span class="chart-legend-pill green">Moisture</span>
+                </div>
+              </div>
+
+              <!-- 4 Synchronized Canvas Streams -->
+              <div class="charts-stream-container">
+                <!-- Acoustic Chart -->
+                <div class="chart-row">
+                  <div class="chart-meta">
+                    <span class="c-title">Acoustic (dB)</span>
+                    <span class="c-val cyan-text" id="val-trace-acoustic">18.4 dB</span>
+                    <span class="vote-state-pill" id="vote-pill-acoustic">NORMAL</span>
+                  </div>
+                  <div class="canvas-container">
+                    <canvas id="chart-acoustic" width="540" height="65"></canvas>
+                  </div>
+                </div>
+
+                <!-- Pressure Chart -->
+                <div class="chart-row">
+                  <div class="chart-meta">
+                    <span class="c-title">Pressure (PSI)</span>
+                    <span class="c-val purple-text" id="val-trace-pressure">58.1 PSI</span>
+                    <span class="vote-state-pill" id="vote-pill-pressure">NORMAL</span>
+                  </div>
+                  <div class="canvas-container">
+                    <canvas id="chart-pressure" width="540" height="65"></canvas>
+                  </div>
+                </div>
+
+                <!-- Flow Rate Chart -->
+                <div class="chart-row">
+                  <div class="chart-meta">
+                    <span class="c-title">Flow (LPM)</span>
+                    <span class="c-val blue-text" id="val-trace-flow">0.0 LPM</span>
+                    <span class="vote-state-pill" id="vote-pill-flow">NORMAL</span>
+                  </div>
+                  <div class="canvas-container">
+                    <canvas id="chart-flow" width="540" height="65"></canvas>
+                  </div>
+                </div>
+
+                <!-- Moisture Chart -->
+                <div class="chart-row">
+                  <div class="chart-meta">
+                    <span class="c-title">Moisture (RH %)</span>
+                    <span class="c-val green-text" id="val-trace-moisture">14% RH</span>
+                    <span class="vote-state-pill" id="vote-pill-moisture">NORMAL</span>
+                  </div>
+                  <div class="canvas-container">
+                    <canvas id="chart-moisture" width="540" height="65"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- COMPARE MODE BANNER (Visible when Compare Mode is enabled) -->
+            <div id="compare-mode-panel" class="glass-panel compare-mode-panel hidden">
+              <div class="compare-header">
+                <span class="compare-badge">SIDE-BY-SIDE BENCHMARK</span>
+                <h4>Single-Sensor Detector vs AquaSense Edge AI</h4>
+              </div>
+              <div class="compare-grid">
+                <!-- Left: Single Sensor -->
+                <div class="compare-box legacy-box">
+                  <div class="box-head">
+                    <span class="box-tag red">Legacy Point Sensor</span>
+                    <span class="box-status" id="legacy-status-pill">NORMAL</span>
+                  </div>
+                  <p class="box-desc" id="legacy-behavior-desc">
+                    Monitoring acoustic threshold only. No cross-modal validation.
+                  </p>
+                  <div class="box-metric-row">
+                    <span>Alarm Triggered:</span>
+                    <strong id="legacy-alarm-text" class="red-text">NO</strong>
+                  </div>
+                  <div class="box-metric-row">
+                    <span>False Alarm Risk:</span>
+                    <strong id="legacy-risk-text" class="amber-text">HIGH (on appliance)</strong>
+                  </div>
+                </div>
+
+                <!-- Right: AquaSense -->
+                <div class="compare-box aquasense-box">
+                  <div class="box-head">
+                    <span class="box-tag green">AquaSense Multi-Modal</span>
+                    <span class="box-status" id="aqua-status-pill">NORMAL</span>
+                  </div>
+                  <p class="box-desc" id="aqua-behavior-desc">
+                    4-modality fusion active. Single-signal false triggers suppressed.
+                  </p>
+                  <div class="box-metric-row">
+                    <span>Corroboration:</span>
+                    <strong id="aqua-corr-text" class="green-text">Active (0/4)</strong>
+                  </div>
+                  <div class="box-metric-row">
+                    <span>Localization:</span>
+                    <strong id="aqua-loc-text" class="cyan-text">Sub-meter armed</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NOTIFICATION & SERVICE TICKET SECTION -->
+    <section class="section service-section">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-tag">Closed-Loop Resolution</span>
+          <h2 class="section-title">Autonomous Action: Notification &amp; Service Dispatch</h2>
+          <p class="section-desc">
+            When cross-modal criteria are met, AquaSense doesn't just sound an alarm—it pinpoints the pipe coordinate and auto-generates a plumber-ready diagnostic ticket.
+          </p>
+        </div>
+
+        <div class="service-cards-layout">
+          <!-- Phone-Style Mobile Notification Preview -->
+          <div class="phone-mockup-wrapper">
+            <div class="phone-frame glass-panel">
+              <div class="phone-notch"></div>
+              <div class="phone-screen">
+                <div class="phone-time-bar">
+                  <span id="phone-clock">10:24 AM</span>
+                  <div class="phone-status-icons">
+                    <span>5G</span>
+                    <span>100%</span>
+                  </div>
+                </div>
+
+                <!-- Notification Card -->
+                <div class="phone-notification-card" id="phone-notification-card">
+                  <div class="notif-header">
+                    <div class="notif-app">
+                      <span class="app-icon-drop">💧</span>
+                      <span class="app-name">AquaSense Protection</span>
+                    </div>
+                    <span class="notif-time">Just now</span>
+                  </div>
+                  <div class="notif-body">
+                    <div class="notif-title-row">
+                      <strong class="notif-title" id="notif-title-text">Water Infrastructure Nominal</strong>
+                      <span class="severity-tag nominal" id="notif-severity-tag">NORMAL</span>
+                    </div>
+                    <p class="notif-message" id="notif-message-text">
+                      All nodes operating within normal baselines. Zero leaks detected across 3 residential pipe sectors.
+                    </p>
+                    <div class="notif-meta-list" id="notif-meta-list">
+                      <div class="n-meta-item">Location: <span id="notif-loc-text">Whole Home Grid</span></div>
+                      <div class="n-meta-item">Confidence: <span id="notif-conf-text">99.8%</span></div>
+                    </div>
+                  </div>
+                  <div class="notif-actions" id="notif-actions-row">
+                    <button class="notif-btn primary" id="notif-confirm-shutoff">Confirm Shutoff</button>
+                    <button class="notif-btn secondary" id="notif-dismiss">Dismiss Alert</button>
+                  </div>
+                </div>
+
+                <div class="phone-home-indicator"></div>
+              </div>
+            </div>
+            <span class="mockup-caption">Live Edge Push Notification</span>
+          </div>
+
+          <!-- Service Plumber Ticket Card -->
+          <div class="service-ticket-card glass-panel" id="service-ticket-card">
+            <div class="ticket-header">
+              <div class="ticket-brand">
+                <span class="ticket-id" id="ticket-id-tag">TICKET #AQ-8492</span>
+                <span class="badge purple">Auto-Generated by Edge AI</span>
+              </div>
+              <span class="ticket-timestamp" id="ticket-time-display">2026-11-20 10:24:18 UTC</span>
+            </div>
+
+            <div class="ticket-body-grid">
+              <div class="ticket-info-group">
+                <span class="t-label">Identified Pipe Location</span>
+                <h4 class="t-value" id="ticket-location-text">Corridor Riser (Between N1 Kitchen &amp; N2 Bathroom)</h4>
+                <span class="t-sub" id="ticket-distance-text">Exact offset: 4.3 meters from N1 (&plusmn;0.3 m)</span>
+              </div>
+
+              <div class="ticket-info-group">
+                <span class="t-label">Corroborated Severity</span>
+                <div class="t-val-badge">
+                  <span class="severity-badge-pill" id="ticket-severity-pill">NOMINAL</span>
+                  <span class="t-trend" id="ticket-trend-text">Rate of change: 0.0%/s</span>
+                </div>
+              </div>
+
+              <div class="ticket-info-group">
+                <span class="t-label">Recommended Remediation Action</span>
+                <p class="t-remedy" id="ticket-remedy-text">
+                  No maintenance required. Pipe integrity verified across all acoustic and pressure transducers.
+                </p>
+              </div>
+
+              <div class="ticket-info-group">
+                <span class="t-label">Telemetry Snapshot Snippet</span>
+                <div class="ticket-sparkline-box">
+                  <canvas id="ticket-sparkline" width="320" height="50"></canvas>
+                </div>
+              </div>
+            </div>
+
+            <div class="ticket-footer-actions">
+              <button class="btn btn-primary" id="dispatch-plumber-btn">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"></path>
+                </svg>
+                Send Diagnostic to Plumber
+              </button>
+              <button class="btn btn-outline" id="download-ticket-btn">
+                Export Technical PDF
+              </button>
+              <span class="ticket-status-pill" id="dispatch-status-pill">Ready to Dispatch</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. WHY AQUASENSE WINS: COMPARISON TABLE -->
+    <section id="comparison" class="section comparison-section">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-tag">Competitive Benchmark</span>
+          <h2 class="section-title">Why AquaSense Wins Against All Alternatives</h2>
+          <p class="section-desc">
+            Direct capability matrix across traditional point sensors, whole-home flow monitors, and utility correlators.
+          </p>
+        </div>
+
+        <div class="table-responsive glass-panel">
+          <table class="benchmark-table">
+            <thead>
+              <tr>
+                <th>Feature / Dimension</th>
+                <th>Point Sensors (Pucks)</th>
+                <th>Whole-Home Flow Meters</th>
+                <th>Utility Listening Rods</th>
+                <th class="highlight-th">AquaSense Edge AI</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Primary Sensing</strong></td>
+                <td>Galvanic contact pins only</td>
+                <td>Single in-line turbine / ultrasonic</td>
+                <td>Single acoustic wand / geophone</td>
+                <td class="highlight-td"><strong>4-Modal Fusion (Acoustic + P + Q + RH)</strong></td>
+              </tr>
+              <tr>
+                <td><strong>False Alarm Rate</strong></td>
+                <td><span class="badge red">Very High</span> (mop water, spills)</td>
+                <td><span class="badge amber">Moderate</span> (dishwasher, garden hose)</td>
+                <td><span class="badge amber">Moderate</span> (street traffic noise)</td>
+                <td class="highlight-td"><span class="badge green">Near Zero (&lt; 0.2%)</span> via Corroboration</td>
+              </tr>
+              <tr>
+                <td><strong>Severity Grading</strong></td>
+                <td>Binary (Dry / Wet)</td>
+                <td>Volume threshold only</td>
+                <td>Manual technician estimate</td>
+                <td class="highlight-td"><strong>4-Tier (Seep, Drip, Moderate, Burst) + dS/dt Trend</strong></td>
+              </tr>
+              <tr>
+                <td><strong>Leak Localization</strong></td>
+                <td>None (only says "floor is wet")</td>
+                <td>None (only says home is losing water)</td>
+                <td>Manual search (&plusmn;5–10 meters)</td>
+                <td class="highlight-td"><strong>Autonomous TDOA (&plusmn;0.4 m accuracy)</strong></td>
+              </tr>
+              <tr>
+                <td><strong>Edge Autonomy</strong></td>
+                <td>None / dumb beeper</td>
+                <td>Cloud-dependent (fails if Wi-Fi drops)</td>
+                <td>Purely manual field tool</td>
+                <td class="highlight-td"><strong>100% On-Device TinyML (works offline)</strong></td>
+              </tr>
+              <tr>
+                <td><strong>Auto-Shutoff Delay</strong></td>
+                <td>No auto shutoff valve</td>
+                <td>15 – 45 min (cloud latency)</td>
+                <td>Manual valve key by crew (hours)</td>
+                <td class="highlight-td"><strong>&lt; 5.0 Seconds with Tap-to-Cancel</strong></td>
+              </tr>
+              <tr>
+                <td><strong>Deployment Cost</strong></td>
+                <td>$30–$60 per puck (many needed)</td>
+                <td>$500–$1,000 + plumber install</td>
+                <td>$15,000+ per professional kit</td>
+                <td class="highlight-td"><strong>Low-cost clip-on node (~$45)</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. TEST SCENARIOS VALIDATION TABLE -->
+    <section id="validation" class="section validation-section">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-tag">Empirical Verification</span>
+          <h2 class="section-title">Automated Validation Test Suite</h2>
+          <p class="section-desc">
+            Rigorous test results verifying cross-modal corroboration, false alarm suppression, and TDOA localization across all 6 core operating conditions.
+          </p>
+        </div>
+
+        <div class="table-responsive glass-panel">
+          <table class="test-results-table">
+            <thead>
+              <tr>
+                <th>Test ID</th>
+                <th>Scenario Description</th>
+                <th>Legacy Single-Sensor Outcome</th>
+                <th>AquaSense Decision Logic</th>
+                <th>Corroborating Modalities</th>
+                <th>Detection Latency</th>
+                <th>Verification</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>TEST-01</code></td>
+                <td><strong>Normal Baseline Noise</strong></td>
+                <td>Silent (Pass)</td>
+                <td>Baseline noise filter; 0 votes active</td>
+                <td>None (0/4)</td>
+                <td>Immediate</td>
+                <td><span class="pass-pill">&check; PASS</span></td>
+              </tr>
+              <tr>
+                <td><code>TEST-02</code></td>
+                <td><strong>Slow Drip at Faucet</strong></td>
+                <td><span class="fail-pill">&cross; MISSED</span> (Below 0.05 LPM flow limit)</td>
+                <td>Acoustic periodic signature + galvanic moisture rise</td>
+                <td>Acoustic + Moisture (2/4)</td>
+                <td>41.2 simulated sec</td>
+                <td><span class="pass-pill">&check; PASS</span></td>
+              </tr>
+              <tr>
+                <td><code>TEST-03</code></td>
+                <td><strong>Catastrophic Burst Pipe</strong></td>
+                <td>Slow cloud alert after 18 minutes</td>
+                <td>Immediate pressure drop + flow surge + high acoustic</td>
+                <td>Flow + Pressure + Acoustic (3/4)</td>
+                <td>1.4 s (&lt;5s shutoff)</td>
+                <td><span class="pass-pill">&check; PASS</span></td>
+              </tr>
+              <tr>
+                <td><code>TEST-04</code></td>
+                <td><strong>Dishwasher Running (No Leak)</strong></td>
+                <td><span class="fail-pill">&cross; FALSE ALARM</span> (Triggers flow/noise threshold)</td>
+                <td>Acoustic spike isolated; moisture &amp; pressure nominal; alarm suppressed</td>
+                <td>Acoustic Only (1/4 &lt; 2)</td>
+                <td>Suppressed in 0.2s</td>
+                <td><span class="pass-pill">&check; PASS</span></td>
+              </tr>
+              <tr>
+                <td><code>TEST-05</code></td>
+                <td><strong>Inter-Node Concealed Leak</strong></td>
+                <td>No location; requires cutting open drywall</td>
+                <td>TDOA Cross-Correlation on N1 &amp; N2 acoustic signals: x = 4.3m</td>
+                <td>Acoustic + Pressure (2/4)</td>
+                <td>3.8 seconds</td>
+                <td><span class="pass-pill">&check; PASS (&plusmn;0.3m)</span></td>
+              </tr>
+              <tr>
+                <td><code>TEST-06</code></td>
+                <td><strong>Wi-Fi Disconnected During Leak</strong></td>
+                <td><span class="fail-pill">&cross; TOTAL FAILURE</span> (Cloud unreachable)</td>
+                <td>100% on-device TinyML inference; local buzzer &amp; shutoff fired</td>
+                <td>Local Edge Fusion</td>
+                <td>2.1 seconds</td>
+                <td><span class="pass-pill">&check; PASS (Offline)</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 7. FOOTER SECTION -->
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <span class="logo-drop">💧</span>
+          <span class="logo-name">AquaSense</span>
+        </div>
+        <p class="footer-motto">
+          AI-Powered Multi-Modal Smart Water Leakage Detection &amp; Autonomous Mitigation.
+        </p>
+        <span class="project-credit">Design Thinking Capstone Project &bull; Class of 2026</span>
+      </div>
+
+      <div class="footer-tech-col">
+        <h5>Key Edge Technologies</h5>
+        <ul>
+          <li><span class="help-tooltip" data-tooltip="Ultra-low power neural network inference (<100mW) executed directly on ARM Cortex-M microcontrollers.">TinyML On-Device</span></li>
+          <li><span class="help-tooltip" data-tooltip="Distributed model training across edge nodes while preserving home telemetry privacy.">Federated Learning</span></li>
+          <li><span class="help-tooltip" data-tooltip="Time-Difference-of-Arrival signal correlation to pinpoint acoustic wave emission coordinates.">TDOA Cross-Correlation</span></li>
+          <li><span class="help-tooltip" data-tooltip="Autonomous valve and alarm response without requiring an internet connection.">Edge Autonomy</span></li>
+          <li><span class="help-tooltip" data-tooltip="126 billion m³ of treated drinking water lost annually before reaching consumers.">Non-Revenue Water (NRW)</span></li>
+        </ul>
+      </div>
+
+      <div class="footer-links-col">
+        <h5>Documentation &amp; Links</h5>
+        <ul>
+          <li><a href="#hero">Hero &amp; Pitch</a></li>
+          <li><a href="#core-idea">Pipeline Architecture</a></li>
+          <li><a href="#simulation">Live Interactive Simulator</a></li>
+          <li><a href="#comparison">Benchmark Table</a></li>
+          <li><a href="#validation">Verification Suite</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container bottom-row">
+        <span>&copy; 2026 AquaSense Systems. Built with Vanilla Web Standards (HTML5 / CSS3 / ES6 Canvas).</span>
+        <span>Runs 100% offline via local <code>index.html</code>. Zero external API dependencies.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- CUSTOM TOOLTIP POPUP (For interactive educational terms) -->
+  <div id="dynamic-tooltip" class="dynamic-tooltip"></div>
+
+  <!-- MODAL: Plumber Dispatch Success Toast -->
+  <div id="toast-modal" class="toast-modal hidden">
+    <div class="toast-content glass-panel">
+      <div class="toast-icon">🚀</div>
+      <div class="toast-text">
+        <h4 id="toast-title">Service Request Dispatched</h4>
+        <p id="toast-desc">Plumbing technician notified with localized leak coordinates &amp; telemetry trace.</p>
+      </div>
+      <button id="toast-close-btn" class="toast-close-btn">&times;</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
