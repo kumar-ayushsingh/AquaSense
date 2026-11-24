@@ -641,7 +641,7 @@ class FloorplanRenderer {
 
   drawRooms(ctx, w, h) {
     // Background Grid lines
-    ctx.strokeStyle = 'rgba(0, 240, 255, 0.04)';
+    ctx.strokeStyle = 'rgba(16, 114, 187, 0.08)';
     ctx.lineWidth = 1;
     for (let x = 0; x < w; x += 30) {
       ctx.beginPath();
@@ -657,7 +657,7 @@ class FloorplanRenderer {
     }
 
     // Room Boundaries (Walls)
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)';
+    ctx.strokeStyle = 'rgba(16, 114, 187, 0.25)';
     ctx.lineWidth = 2;
 
     // Kitchen Room (Top Left)
@@ -670,7 +670,7 @@ class FloorplanRenderer {
     ctx.strokeRect(430, 230, 220, 160);
 
     // Doors / Passages
-    ctx.fillStyle = '#060e1a';
+    ctx.fillStyle = '#F8FAFC';
     ctx.fillRect(150, 208, 40, 6);
     ctx.fillRect(480, 208, 40, 6);
   }
@@ -687,7 +687,7 @@ class FloorplanRenderer {
     ctx.lineJoin = 'round';
 
     // Outer Pipe Casement
-    ctx.strokeStyle = '#0A1F3D';
+    ctx.strokeStyle = '#CBD5E1';
     ctx.lineWidth = 12;
     ctx.beginPath();
     ctx.moveTo(80, 310);
@@ -698,7 +698,7 @@ class FloorplanRenderer {
 
     // Inner Water Channel
     const isClosed = state.valveState === 'closed';
-    ctx.strokeStyle = isClosed ? '#0E2A52' : '#1072BB';
+    ctx.strokeStyle = isClosed ? '#94A3B8' : '#1072BB';
     ctx.lineWidth = 6;
     ctx.beginPath();
     ctx.moveTo(80, 310);
@@ -809,8 +809,8 @@ class FloorplanRenderer {
       ctx.stroke();
 
       // Node Label
-      ctx.font = 'bold 11px SF Mono, monospace';
-      ctx.fillStyle = '#ffffff';
+      ctx.font = 'bold 11px Plus Jakarta Sans, sans-serif';
+      ctx.fillStyle = '#00467A';
       ctx.textAlign = 'center';
       ctx.fillText(key, pt.x, pt.y - 16);
 
@@ -924,7 +924,7 @@ class UtilityMapRenderer {
     ctx.clearRect(0, 0, w, h);
 
     // Grid backdrop
-    ctx.strokeStyle = 'rgba(0, 240, 255, 0.05)';
+    ctx.strokeStyle = 'rgba(16, 114, 187, 0.08)';
     ctx.lineWidth = 1;
     for (let x = 0; x < w; x += 40) {
       ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke();
@@ -977,8 +977,8 @@ class UtilityMapRenderer {
       ctx.stroke();
 
       // Node ID Label
-      ctx.font = 'bold 10px SF Mono, monospace';
-      ctx.fillStyle = '#ffffff';
+      ctx.font = 'bold 10px Plus Jakarta Sans, sans-serif';
+      ctx.fillStyle = '#00467A';
       ctx.textAlign = 'center';
       ctx.fillText(n.id, n.x, n.y - 12);
 
@@ -1075,9 +1075,9 @@ class ChartRenderer {
     const latestNorm = (latestVal - minVal) / (maxVal - minVal);
     const leadY = Math.max(2, Math.min(h - 2, h - latestNorm * h));
 
-    ctx.fillStyle = '#ffffff';
+    ctx.fillStyle = colorHex;
     ctx.beginPath();
-    ctx.arc(w - 3, leadY, 3, 0, Math.PI * 2);
+    ctx.arc(w - 3, leadY, 3.5, 0, Math.PI * 2);
     ctx.fill();
 
     ctx.restore();
@@ -1102,7 +1102,7 @@ class ChartRenderer {
     ctx.save();
     ctx.lineCap = 'round';
     ctx.lineWidth = 10;
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
+    ctx.strokeStyle = '#E2E8F0';
     ctx.beginPath();
     ctx.arc(cx, cy, radius, startAngle, endAngle);
     ctx.stroke();
