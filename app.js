@@ -687,7 +687,7 @@ class FloorplanRenderer {
     ctx.lineJoin = 'round';
 
     // Outer Pipe Casement
-    ctx.strokeStyle = '#162b48';
+    ctx.strokeStyle = '#0A1F3D';
     ctx.lineWidth = 12;
     ctx.beginPath();
     ctx.moveTo(80, 310);
@@ -698,7 +698,7 @@ class FloorplanRenderer {
 
     // Inner Water Channel
     const isClosed = state.valveState === 'closed';
-    ctx.strokeStyle = isClosed ? '#1f385c' : '#00b4d8';
+    ctx.strokeStyle = isClosed ? '#0E2A52' : '#1072BB';
     ctx.lineWidth = 6;
     ctx.beginPath();
     ctx.moveTo(80, 310);
@@ -709,7 +709,7 @@ class FloorplanRenderer {
 
     // Water Flow Pulse / Dashes (halted when valve closed)
     if (!isClosed) {
-      ctx.strokeStyle = '#00f0ff';
+      ctx.strokeStyle = '#38BDF8';
       ctx.lineWidth = 4;
       ctx.setLineDash([8, 14]);
       ctx.lineDashOffset = -this.fluidPhase * 14;
@@ -730,7 +730,7 @@ class FloorplanRenderer {
 
   drawValveGraphic(ctx, x, y, isClosed) {
     ctx.save();
-    ctx.fillStyle = isClosed ? '#f43f5e' : '#10b981';
+    ctx.fillStyle = isClosed ? '#F93E5E' : '#02CE80';
     ctx.strokeStyle = '#ffffff';
     ctx.lineWidth = 1.5;
 
@@ -750,7 +750,7 @@ class FloorplanRenderer {
     ctx.lineTo(x, y - 14);
     ctx.stroke();
 
-    ctx.fillStyle = isClosed ? '#f43f5e' : '#10b981';
+    ctx.fillStyle = isClosed ? '#F93E5E' : '#02CE80';
     ctx.beginPath();
     ctx.arc(x, y - 15, 4, 0, Math.PI * 2);
     ctx.fill();
@@ -774,17 +774,17 @@ class FloorplanRenderer {
       const node = state.nodes[key];
       const isSelected = state.selectedNode === key;
 
-      // Determine color from node status
-      let color = '#10b981'; // healthy green
-      if (node.status === 'suspicious') color = '#f59e0b'; // amber
-      if (node.status === 'leak') color = '#f43f5e';       // red
+      // Determine color from node status (aquasense.tech palette)
+      let color = '#02CE80'; // healthy green
+      if (node.status === 'suspicious') color = '#F2994A'; // amber
+      if (node.status === 'leak') color = '#F93E5E';       // red
 
       ctx.save();
 
       // Selected Halo
       if (isSelected) {
-        ctx.strokeStyle = '#00f0ff';
-        ctx.lineWidth = 2;
+        ctx.strokeStyle = '#2F80ED';
+        ctx.lineWidth = 2.5;
         ctx.setLineDash([4, 4]);
         ctx.beginPath();
         ctx.arc(pt.x, pt.y, 22, 0, Math.PI * 2);
@@ -838,7 +838,7 @@ class FloorplanRenderer {
     ctx.save();
 
     // Pulsing acoustic/water ripples
-    ctx.strokeStyle = '#f43f5e';
+    ctx.strokeStyle = '#F93E5E';
     ctx.lineWidth = 2;
     ctx.globalAlpha = Math.max(0, 1 - this.rippleRadius / 28);
     ctx.beginPath();
@@ -851,7 +851,7 @@ class FloorplanRenderer {
 
     // Cross-hair marker
     ctx.globalAlpha = 1.0;
-    ctx.strokeStyle = '#00f0ff';
+    ctx.strokeStyle = '#38BDF8';
     ctx.lineWidth = 1.5;
     ctx.beginPath();
     ctx.moveTo(leakX - 10, leakY);
@@ -863,14 +863,14 @@ class FloorplanRenderer {
     // TDOA Confidence Bracket if TDOA is active
     if (state.tdoa.active) {
       const marginPx = (state.tdoa.errorMargin / CONFIG.pipeDistanceN1N2) * (380 - 170);
-      ctx.strokeStyle = 'rgba(0, 240, 255, 0.7)';
-      ctx.fillStyle = 'rgba(0, 240, 255, 0.15)';
+      ctx.strokeStyle = 'rgba(56, 189, 248, 0.85)';
+      ctx.fillStyle = 'rgba(16, 114, 187, 0.18)';
       ctx.strokeRect(leakX - marginPx, leakY - 12, marginPx * 2, 24);
       ctx.fillRect(leakX - marginPx, leakY - 12, marginPx * 2, 24);
 
       // Bracket Label
       ctx.font = '10px SF Mono, monospace';
-      ctx.fillStyle = '#00f0ff';
+      ctx.fillStyle = '#38BDF8';
       ctx.textAlign = 'center';
       ctx.fillText(`±${state.tdoa.errorMargin}m (${state.tdoa.distanceFromN1.toFixed(1)}m from N1)`, leakX, leakY + 28);
     }
@@ -942,7 +942,7 @@ class UtilityMapRenderer {
       ctx.save();
       ctx.lineCap = 'round';
       ctx.lineWidth = isLeaking ? 7 : 4;
-      ctx.strokeStyle = isLeaking ? '#f43f5e' : '#00b4d8';
+      ctx.strokeStyle = isLeaking ? '#F93E5E' : '#1072BB';
       ctx.beginPath();
       ctx.moveTo(a.x, a.y);
       ctx.lineTo(b.x, b.y);
@@ -950,7 +950,7 @@ class UtilityMapRenderer {
 
       if (isLeaking) {
         // Acoustic shock wave emission along pipe
-        ctx.strokeStyle = '#ffd166';
+        ctx.strokeStyle = '#FFB539';
         ctx.lineWidth = 2;
         ctx.setLineDash([6, 8]);
         ctx.lineDashOffset = -this.pulsePhase * 8;
@@ -968,7 +968,7 @@ class UtilityMapRenderer {
         this.segments[state.utility.leakSegmentIndex] && 
         this.segments[state.utility.leakSegmentIndex].includes(idx);
 
-      ctx.fillStyle = isNearLeak ? '#f43f5e' : '#00f0ff';
+      ctx.fillStyle = isNearLeak ? '#F93E5E' : '#2F80ED';
       ctx.beginPath();
       ctx.arc(n.x, n.y, isNearLeak ? 9 : 6, 0, Math.PI * 2);
       ctx.fill();
@@ -1111,11 +1111,11 @@ class ChartRenderer {
     const scoreRatio = Math.max(0, Math.min(100, score)) / 100;
     const fillEnd = startAngle + (endAngle - startAngle) * scoreRatio;
 
-    let arcColor = '#10b981'; // Green
-    if (score >= 80) arcColor = '#f43f5e'; // Red
-    else if (score >= 60) arcColor = '#fb923c'; // Orange
-    else if (score >= 40) arcColor = '#f59e0b'; // Amber
-    else if (score >= 25) arcColor = '#00f0ff'; // Cyan
+    let arcColor = '#02CE80'; // Green
+    if (score >= 80) arcColor = '#F93E5E'; // Red
+    else if (score >= 60) arcColor = '#F2994A'; // Orange
+    else if (score >= 40) arcColor = '#FFB539'; // Amber
+    else if (score >= 25) arcColor = '#1072BB'; // Cyan
 
     ctx.strokeStyle = arcColor;
     ctx.beginPath();
@@ -1137,8 +1137,8 @@ class ChartRenderer {
     const len = buffer.length;
     if (len < 2) return;
 
-    ctx.strokeStyle = '#00f0ff';
-    ctx.lineWidth = 1.5;
+    ctx.strokeStyle = '#1072BB';
+    ctx.lineWidth = 1.8;
     ctx.beginPath();
 
     for (let i = 0; i < len; i++) {
@@ -1309,10 +1309,10 @@ class SimulationManager {
     const th = CONFIG.thresholds;
 
     // Draw the 4 live canvas lines
-    ChartRenderer.drawStream('chart-acoustic', node.history.acoustic, th.acoustic, 0, 100, '#00f0ff', 'dB');
-    ChartRenderer.drawStream('chart-pressure', node.history.pressure, th.pressure, 0, 80, '#a855f7', 'PSI');
+    ChartRenderer.drawStream('chart-acoustic', node.history.acoustic, th.acoustic, 0, 100, '#2F80ED', 'dB');
+    ChartRenderer.drawStream('chart-pressure', node.history.pressure, th.pressure, 0, 80, '#8B5CF6', 'PSI');
     ChartRenderer.drawStream('chart-flow', node.history.flow, th.flow, 0, 45, '#38bdf8', 'LPM');
-    ChartRenderer.drawStream('chart-moisture', node.history.moisture, th.moisture, 0, 100, '#34d399', '% RH');
+    ChartRenderer.drawStream('chart-moisture', node.history.moisture, th.moisture, 0, 100, '#02CE80', '% RH');
 
     // Draw Fusion Score Gauge
     ChartRenderer.drawGauge('gauge-canvas', state.fusionScore);
