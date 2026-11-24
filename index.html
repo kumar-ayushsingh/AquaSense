@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
-<body class="light-theme">
+<body>
   <!-- TOP NAVIGATION (AQUASENSE.TECH FLOATING PILL NAVBAR) -->
   <header class="site-header">
     <div class="container as-navbar-row">
@@ -342,18 +342,28 @@
 
     <!-- 4. LIVE SIMULATION SECTION -->
     <section id="simulation" class="section simulation-section">
-      <div class="container-fluid sim-wrapper">
-        <div class="sim-header-row">
-          <div>
-            <div class="sim-mode-badge">
-              <span class="badge-status-dot green" id="sim-overall-status-dot"></span>
-              <span id="sim-overall-status-text">SYSTEM ONLINE &bull; NORMAL OPERATION</span>
-            </div>
-            <h2 class="sim-title">AquaSense Live Interactive Simulation</h2>
-          </div>
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-tag">Interactive Digital Twin</span>
+          <h2 class="section-title">AquaSense Live Interactive Simulation</h2>
+          <p class="section-desc">
+            Directly test multi-modal sensor fusion, appliance false alarm suppression, sub-meter TDOA localization, and autonomous valve actuation in real time.
+          </p>
+        </div>
+      </div>
 
-          <!-- Simulation Top Toolbar -->
-          <div class="sim-toolbar">
+      <div class="container-fluid sim-wrapper">
+        <div class="sim-controls-card glass-panel">
+          <div class="sim-header-row">
+            <div class="sim-status-box">
+              <div class="sim-mode-badge">
+                <span class="badge-status-dot green" id="sim-overall-status-dot"></span>
+                <span id="sim-overall-status-text">SYSTEM ONLINE &bull; NORMAL OPERATION</span>
+              </div>
+            </div>
+
+            <!-- Simulation Top Toolbar -->
+            <div class="sim-toolbar">
             <!-- View Tabs: Home vs Utility DMA -->
             <div class="view-tabs">
               <button class="view-tab-btn active" id="tab-home-btn" data-view="home">
@@ -405,6 +415,7 @@
               <span class="switch-label"><strong>Compare Mode</strong> (vs Legacy)</span>
             </div>
           </div>
+        </div>
         </div>
 
         <!-- Burst Countdown Alert Banner (Hidden by default, shown during burst) -->
@@ -736,12 +747,12 @@
 
             <!-- LIVE SCROLLING CHARTS (4 SIGNALS) -->
             <div class="glass-panel charts-card">
-              <div class="card-header-bar">
+              <div class="card-header-bar charts-header-bar">
                 <div class="header-left">
-                  <span class="card-title">Live Sensor Traces (Selected: <strong id="chart-node-label">N1 Kitchen</strong>)</span>
+                  <span class="card-title">Live Sensor Traces (<strong id="chart-node-label">N1 Kitchen</strong>)</span>
                   <span class="sampling-rate-pill">200 Hz Edge Buffer</span>
                 </div>
-                <div class="header-right">
+                <div class="header-right chart-legends">
                   <span class="chart-legend-pill cyan">Acoustic</span>
                   <span class="chart-legend-pill purple">Pressure</span>
                   <span class="chart-legend-pill blue">Flow</span>
@@ -1149,11 +1160,11 @@
       <div class="footer-tech-col">
         <h5>Key Edge Technologies</h5>
         <ul>
-          <li><span class="help-tooltip" data-tooltip="Ultra-low power neural network inference (<100mW) executed directly on ARM Cortex-M microcontrollers.">TinyML On-Device</span></li>
-          <li><span class="help-tooltip" data-tooltip="Distributed model training across edge nodes while preserving home telemetry privacy.">Federated Learning</span></li>
-          <li><span class="help-tooltip" data-tooltip="Time-Difference-of-Arrival signal correlation to pinpoint acoustic wave emission coordinates.">TDOA Cross-Correlation</span></li>
-          <li><span class="help-tooltip" data-tooltip="Autonomous valve and alarm response without requiring an internet connection.">Edge Autonomy</span></li>
-          <li><span class="help-tooltip" data-tooltip="126 billion m³ of treated drinking water lost annually before reaching consumers.">Non-Revenue Water (NRW)</span></li>
+          <li>TinyML On-Device <span class="help-tooltip" data-tooltip="Ultra-low power neural network inference (<100mW) executed directly on ARM Cortex-M microcontrollers.">?</span></li>
+          <li>Federated Learning <span class="help-tooltip" data-tooltip="Distributed model training across edge nodes while preserving home telemetry privacy.">?</span></li>
+          <li>TDOA Cross-Correlation <span class="help-tooltip" data-tooltip="Time-Difference-of-Arrival signal correlation to pinpoint acoustic wave emission coordinates.">?</span></li>
+          <li>Edge Autonomy <span class="help-tooltip" data-tooltip="Autonomous valve and alarm response without requiring an internet connection.">?</span></li>
+          <li>Non-Revenue Water (NRW) <span class="help-tooltip" data-tooltip="126 billion m³ of treated drinking water lost annually before reaching consumers.">?</span></li>
         </ul>
       </div>
 

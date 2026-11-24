@@ -808,11 +808,22 @@ class FloorplanRenderer {
       ctx.lineWidth = 2;
       ctx.stroke();
 
-      // Node Label
+      // Node Label with badge
+      ctx.save();
       ctx.font = 'bold 11px Plus Jakarta Sans, sans-serif';
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+      ctx.strokeStyle = 'rgba(16, 114, 187, 0.4)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      if (ctx.roundRect) ctx.roundRect(pt.x - 14, pt.y - 28, 28, 16, 4);
+      else ctx.rect(pt.x - 14, pt.y - 28, 28, 16);
+      ctx.fill();
+      ctx.stroke();
       ctx.fillStyle = '#00467A';
       ctx.textAlign = 'center';
-      ctx.fillText(key, pt.x, pt.y - 16);
+      ctx.textBaseline = 'middle';
+      ctx.fillText(key, pt.x, pt.y - 20);
+      ctx.restore();
 
       ctx.restore();
     }
